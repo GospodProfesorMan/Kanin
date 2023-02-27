@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import TickerService from "../services/TickerService";
 
 export default function Ticker() {
-    let [ticker, setTicker] = useState("");
 
-    useEffect(() => {
-        async function setTick() {
-            if (ticker.length < 130) {
-                let t = (await TickerService.getTicker()).ticker
-                setTicker((tick) => { return tick + ' || ' + t });
-            }
-        }
-        setTick();
-    }, [ticker]);
+    async function getTickerItem() {
+        return await TickerService.getTicker()
+    }
 
+    //figure out an optimal interval to fetch
     useEffect(() => {
-        setInterval(() => {
-            setTicker((tick) => { return tick.substring(1) });
-        }, 750);
+        const tickerBar = document.getElementById('tickerBar')
+        setInterval(async () => {
+            const data = await getTickerItem()
+            const tickerItem = document.createElement('div')
+            tickerItem.innerHTML = data
+            tickerItem.className = 'ticker'
+            tickerItem.style.display = 'inline-block'
+            tickerItem.style.width = "100%"
+            tickerItem.style.position = 'absolute'
+            tickerBar.append(tickerItem)
+            setTimeout(() => {
+                tickerItem.remove()
+            }, 25000);
+        }, 5000);
     }, []);
 
     return (
-        <p style={{ fontSize: "1.6vw", overflow: "hidden", whiteSpace: "nowrap", padding: "0px", margin: "0px", width: "95.5vw", fontFamily: "monospace", wordSpacing: "-.7vh", textOverflow: "revert-layer" }}>
-            {ticker.slice(0, 130)}
-        </p>
+        <div style={{ fontSize: "1.6vw", overflow: "hidden", whiteSpace: "nowrap", padding: "0px", margin: "0px"
+        ,width: "95.5vw", fontFamily: "monospace", wordSpacing: "-.7vh"}} id="tickerBar">
+        </div>
     );
 }

@@ -1,5 +1,3 @@
-import UnavailableComponent from "../UnavailableComponent";
-import ReactHtmlParser from "react-html-parser";
 import CONFIG from '../../../config'
 
 export default function HalfLQuarterUD(input) {
@@ -15,7 +13,7 @@ export default function HalfLQuarterUD(input) {
                 backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
                 color: CONFIG.darkmode ? "#ffffff" : "#000000"
             }}>
-                {input.content[0] ? ReactHtmlParser(input.content[0]) : <UnavailableComponent/>}
+                {input.children[0].type(input.content[0].content)}
             </div>
             <div className={"d-flex flex-column overflow-hidden shadow-lg rounded"} style={{
                 margin: "8px",
@@ -28,7 +26,7 @@ export default function HalfLQuarterUD(input) {
                 backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
                 color: CONFIG.darkmode ? "#ffffff" : "#000000"
             }}>
-                {input.content[1] ? ReactHtmlParser(input.content[1]) : <UnavailableComponent/>}
+                {input.children[1].type(input.content[1].content)}
             </div>
             <div className={"d-flex flex-column overflow-hidden shadow-lg rounded"} style={{
                 margin: "8px",
@@ -42,7 +40,7 @@ export default function HalfLQuarterUD(input) {
                 color: CONFIG.darkmode ? "#ffffff" : "#000000"
 
             }}>
-                {input.content[2] ? ReactHtmlParser(input.content[2]) : <UnavailableComponent/>}
+                {input.children[2].type(input.content[2].content)}
             </div>
         </div>
     )

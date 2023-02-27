@@ -3,27 +3,26 @@ import { useEffect, useState } from "react";
 import SlideRenderer from "./SlideRenderer";
 
 export default function Screen() {
-    const [slide, setSlide] = useState([{
-        type: "full",
-        content: [
-            "",
-            "",
-            "",
-            "",
-        ]
-    }]);
+    const [slides, setSlides] = useState();
 
-    const [slide_n, setSlide_N] = useState(0);
+    useEffect(() => {
+        if (!slides) return
+        setTimeout(() => {
+            if (slides[0] === slides[1].length - 1) {
+                ScreenService.getScreen().then(screens => {
+                    setSlides([0, screens])
+                })
+            } else setSlides(current => [current[0]+1, current[1]])
+        }, 10000)
+    }, [slides])
 
-    if (Date.now() % 10000 === 0) {
-        ScreenService.getScreen().then(slides => {
-            setSlide(slides);
-        });
-        setSlide_N((slide_n + 1) % slide.length);
-    }
+    useEffect(() => {
+        ScreenService.getScreen().then(screens => setSlides([0, screens]))
+    }, [])
 
-    return (
-        <SlideRenderer type={slide[slide_n].type} content={slide[slide_n].content} />
+    return ( slides ?
+        <SlideRenderer type={slides[1][slides[0]].template} content={slides[1][slides[0]].presets} />
+        : null
     )
 }
 

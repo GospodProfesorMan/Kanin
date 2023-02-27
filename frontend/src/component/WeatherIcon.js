@@ -38,6 +38,6 @@ export default function WeatherIcon() {
     }, []);
 
     return (
-        <FontAwesomeIcon fontSize="4vh" icon={weatherIcon}/>
+        <FontAwesomeIcon fontSize="4vh" style={{zIndex: 1, background: 'white', boxShadow: '-1em 0 white'}} icon={weatherIcon}/>
     );
 }

@@ -27,12 +27,6 @@ export default function MainNavbar() {
     return (
         <Navbar style={{ backgroundColor: (CONFIG.darkmode ? "#333333" : "#ffffff") }} expand="lg" className={"shadow"}>
             <Container fluid>
-                {/*<WeatherIcon />*/}
-
-                {/*<Row className="d-flex">*/}
-                {/*	<h1>{clock}</h1>*/}
-                {/*</Row>*/}
-
                 <Navbar.Brand href="#">
                     <img src={logo} alt="Vegova logo"/>
                 </Navbar.Brand>
@@ -42,9 +36,6 @@ export default function MainNavbar() {
                 <Row className="d-flex">
                     <h1 style={{color: (CONFIG.darkmode ? "#ffffff" : "#000000")}}>{clock}</h1>
                 </Row>
-
-                {/*<WeatherIcon />*/}
-
             </Container>
         </Navbar>
     );
