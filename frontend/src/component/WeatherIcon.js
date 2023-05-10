@@ -37,7 +37,7 @@ export default function WeatherIcon() {
         }, 5000);
     }, []);
 
-    return (
-        <FontAwesomeIcon fontSize="4vh" style={{zIndex: 1, background: 'white', boxShadow: '-1em 0 white'}} icon={weatherIcon}/>
-    );
+    return (<div className="icon_container">
+        <FontAwesomeIcon icon={weatherIcon}/>
+    </div>);
 }

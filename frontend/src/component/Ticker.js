@@ -8,27 +8,27 @@ export default function Ticker() {
         return await TickerService.getTicker()
     }
 
-    //figure out an optimal interval to fetch
     useEffect(() => {
         const tickerBar = document.getElementById('tickerBar')
-        setInterval(async () => {
+        async function get() {
             const data = await getTickerItem()
             const tickerItem = document.createElement('div')
             tickerItem.innerHTML = data
             tickerItem.className = 'ticker'
-            tickerItem.style.display = 'inline-block'
-            tickerItem.style.width = "100%"
-            tickerItem.style.position = 'absolute'
             tickerBar.append(tickerItem)
+            const distance = tickerBar.clientWidth*2
+            const velocity = distance / 24
+            const time = tickerItem.clientWidth / velocity
+            console.log(time, velocity, distance, tickerItem.clientWidth);
+            setTimeout(get, time * 1000)
             setTimeout(() => {
                 tickerItem.remove()
-            }, 25000);
-        }, 5000);
+            }, 26000);
+        }
+        get()
     }, []);
 
     return (
-        <div style={{ fontSize: "1.6vw", overflow: "hidden", whiteSpace: "nowrap", padding: "0px", margin: "0px"
-        ,width: "95.5vw", fontFamily: "monospace", wordSpacing: "-.7vh"}} id="tickerBar">
-        </div>
+        <div id="tickerBar"></div>
     );
 }

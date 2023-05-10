@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-
 import logo from "../assets/img/logo.svg";
 import CONFIG from '../config'
 import CountdownTimer from "./CountdownTimer";
@@ -25,18 +21,11 @@ export default function MainNavbar() {
     });
 
     return (
-        <Navbar style={{ backgroundColor: (CONFIG.darkmode ? "#333333" : "#ffffff") }} expand="lg" className={"shadow"}>
-            <Container fluid>
-                <Navbar.Brand href="#">
-                    <img src={logo} alt="Vegova logo"/>
-                </Navbar.Brand>
-
-                <CountdownTimer />
-
-                <Row className="d-flex">
-                    <h1 style={{color: (CONFIG.darkmode ? "#ffffff" : "#000000")}}>{clock}</h1>
-                </Row>
-            </Container>
-        </Navbar>
+        <div className="main_nav" style={{ backgroundColor: (CONFIG.darkmode ? "#333333" : "#ffffff") }}>
+            {/* <img src={logo} alt="Vegova logo" className="logo"/> */}
+            <div className="logo" style={{backgroundImage:"url("+logo+")"}}></div>
+            <CountdownTimer />
+            <div style={{color: (CONFIG.darkmode ? "#ffffff" : "#000000")}}>{clock}</div>
+        </div>
     );
 }

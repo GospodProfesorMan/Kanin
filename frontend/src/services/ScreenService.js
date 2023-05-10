@@ -7,7 +7,7 @@ export default class ScreenService {
         
         const s = response.data
         const templates = ['full', 'halfL-quarterUD', 'quarterUD-halfR', 'halfLR', 'halfUD']
-        const presets = ['raw', 'table']
+        const presets = ['raw', 'table', 'weather']
         const lengthMap = {
             'full': 1,
             'halfL-quarterUD': 3,

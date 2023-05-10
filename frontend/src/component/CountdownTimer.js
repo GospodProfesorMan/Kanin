@@ -38,11 +38,8 @@ export default function CountdownTimer() {
     }, [])
 
     return (
-        <h1 style={{
-            width: "10vw",
-            textAlign: "center",
-        }} >
+        <div>
             {`${('0' + Math.floor((clock - (clock % 60)) / 60)).slice(-2)}:${('0' + clock % 60).slice(-2)}`}
-        </h1>
+        </div>
     );
 }

@@ -6,6 +6,7 @@ import HalfUD from "./templates/halfUD";
 
 import Table from "./templates/presets/table";
 import Raw from "./templates/presets/test"
+import Weather from "./templates/presets/weather";
 
 import UnavailableComponent from "./UnavailableComponent"
 
@@ -13,7 +14,8 @@ export default function SlideRenderer(input) {
 
     const presetMap = {
         'raw': <Raw/>,
-        'table': <Table/>
+        'table': <Table/>,
+        'weather': <Weather/>
     }
     const screenMap = {
         "full": <Full content={input.content}>{presetMap[input.content?.[0]?.preset] ? presetMap[input.content?.[0]?.preset] : <Raw/>}</Full>,

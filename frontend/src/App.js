@@ -6,7 +6,7 @@ export default function App() {
 	return (
 		<div>
 			<MainNavbar />
-			<Screen />
+			<div id="anim-wrapper"><Screen /></div>
 			<MainFooter />
 		</div>
 	);
