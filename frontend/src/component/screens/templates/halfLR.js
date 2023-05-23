@@ -2,26 +2,14 @@ import CONFIG from "../../../config";
 
 export default function HalfLR(input) {
     return (
-        <div>
-            <div className={"d-flex flex-column overflow-hidden shadow-lg rounded"} style={{
-                margin: "8px",
-                height: "84.8vh",
-                width: "49.35vw",
-                float: "left",
-                marginRight: "4px",
-                borderRadius: "18px",
+        <div className={"screen halfLR"}>
+            <div className={"Lhalf flex"} style={{
                 backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
                 color: CONFIG.darkmode ? "#ffffff" : "#000000"
             }}>
                 {input.children[0].type(input.content[0].content)}
             </div>
-            <div className={"d-flex flex-column overflow-hidden shadow-lg rounded"} style={{
-                margin: "8px",
-                height: "84.8vh",
-                width: "49.35vw",
-                float: "right",
-                marginLeft: "4px",
-                borderRadius: "18px",
+            <div className={"Rhalf flex"} style={{
                 backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
                 color: CONFIG.darkmode ? "#ffffff" : "#000000",
             }}>

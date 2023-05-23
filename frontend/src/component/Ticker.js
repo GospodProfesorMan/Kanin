@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import TickerService from "../services/TickerService";
 
+let tickerBuffer = []
 export default function Ticker() {
 
     async function getTickerItem() {
@@ -10,16 +11,17 @@ export default function Ticker() {
 
     useEffect(() => {
         const tickerBar = document.getElementById('tickerBar')
-        async function get() {
-            const data = await getTickerItem()
+        function get() {
+            getTickerItem().then((data) => {tickerBuffer.push(data)})
             const tickerItem = document.createElement('div')
-            tickerItem.innerHTML = data
+            let content = tickerBuffer.shift()
+            if (content == undefined) content = "   "
+            tickerItem.innerHTML = content
             tickerItem.className = 'ticker'
             tickerBar.append(tickerItem)
             const distance = tickerBar.clientWidth*2
             const velocity = distance / 24
             const time = tickerItem.clientWidth / velocity
-            console.log(time, velocity, distance, tickerItem.clientWidth);
             setTimeout(get, time * 1000)
             setTimeout(() => {
                 tickerItem.remove()

@@ -1,7 +1,7 @@
 import CONFIG from '../../../config'
 
 export default function Full(input) {
-    return (<div className="screen full" style={{
+    return (<div className="screen full flex" style={{
             backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
             color: CONFIG.darkmode ? "#ffffff" : "#000000"
             }}>
