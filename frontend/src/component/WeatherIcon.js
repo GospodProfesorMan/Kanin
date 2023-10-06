@@ -11,23 +11,22 @@ import {
     faWind
 } from '@fortawesome/free-solid-svg-icons';
 
-import WeatherService from "../services/WeatherService";
+import getWeather from "../services/WeatherService";
 
+const weatherMap = {
+    "sunny": faSun,
+    "rainy": faCloudShowersHeavy,
+    "foggy": faSmog,
+    "snowy": faSnowflake,
+    "thunderstormy": faThunderstorm,
+    "windy": faWind
+};
 export default function WeatherIcon() {
     const [weatherIcon, setWeatherIcon] = useState(faCake);
 
     useEffect(() => {
         setInterval(() => {
-            WeatherService.getWeather().then(weatherText => {
-                const weatherMap = {
-                    "sunny": faSun,
-                    "rainy": faCloudShowersHeavy,
-                    "foggy": faSmog,
-                    "snowy": faSnowflake,
-                    "thunderstormy": faThunderstorm,
-                    "windy": faWind
-                };
-
+            getWeather().then(weatherText => {
                 if (weatherMap[weatherText] === undefined) {
                     setWeatherIcon(faCake);
                 } else {

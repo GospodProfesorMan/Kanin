@@ -1,28 +1,52 @@
 import { useEffect } from "react";
 
-import TickerService from "../services/TickerService";
+import getTicker from "../services/TickerService";
 
 let tickerBuffer = []
+let restOfTickerItem = ""
 export default function Ticker() {
-
-    async function getTickerItem() {
-        return await TickerService.getTicker()
-    }
-
     useEffect(() => {
+        const startingPosition = document.getElementById('main_footer').getBoundingClientRect().right
         const tickerBar = document.getElementById('tickerBar')
+        const barWidth = tickerBar.clientWidth
+        // distance (form 100% to -100%) / 24seconds (animation time)
+        const velocity = barWidth*2 / 24
+        const testItem = document.createElement('div')
+        //v primeru, da se user odloci spammat @ (edini charechter sisrsi od W) se stvar sesuje
+        testItem.innerHTML = "W"
+        testItem.className = 'ticker'
+        tickerBar.append(testItem)
+        const charecterLimit = Math.ceil(barWidth/testItem.clientWidth)
+        testItem.remove()
+        let addGap
         function get() {
-            getTickerItem().then((data) => {tickerBuffer.push(data)})
+            if (tickerBuffer.length < 10 ) getTicker().then((data) => {tickerBuffer=tickerBuffer.concat(data)})
+            if (!tickerBuffer[0] && restOfTickerItem.length < 1) {
+                setTimeout(get, 500)
+                return
+            }
             const tickerItem = document.createElement('div')
-            let content = tickerBuffer.shift()
-            if (content == undefined) content = "   "
+            let content
+            if (restOfTickerItem.length === 0) {
+                content = tickerBuffer.shift()
+                if (content === undefined) content = "   "
+                restOfTickerItem = content.substring(charecterLimit)
+                content = content.substring(0, charecterLimit)
+                addGap = 1
+            }
+            else {
+                content = restOfTickerItem.substring(0, charecterLimit)
+                restOfTickerItem = restOfTickerItem.substring(charecterLimit)
+                addGap = 0
+            }
             tickerItem.innerHTML = content
             tickerItem.className = 'ticker'
+            const catchupDistance = startingPosition - tickerBar.lastChild?.getBoundingClientRect().right - addGap*20
+            const catchupTime = catchupDistance / velocity
+            tickerItem.style.animationDelay = -catchupTime+"s";
             tickerBar.append(tickerItem)
-            const distance = tickerBar.clientWidth*2
-            const velocity = distance / 24
-            const time = tickerItem.clientWidth / velocity
-            setTimeout(get, time * 1000)
+            const time = tickerItem.clientWidth / velocity - catchupTime
+            setTimeout(get, time*1000)
             setTimeout(() => {
                 tickerItem.remove()
             }, 26000);
@@ -34,3 +58,6 @@ export default function Ticker() {
         <div id="tickerBar"></div>
     );
 }
+//let user decide backend spacing (currenly 20px)
+//add a small buffer for the emements to catch up in so it's not vissible
+//also mby improve atchup mechanics since the distance is like 30px on avg

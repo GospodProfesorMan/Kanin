@@ -1,18 +1,12 @@
-import CONFIG from "../../../config";
-
 export default function HalfLR(input) {
+    input.content[0].content.parentDimensionMultipliers = [0.5,1]
+    input.content[1].content.parentDimensionMultipliers = [0.5,1]
     return (
-        <div className={"screen halfLR"}>
-            <div className={"Lhalf flex"} style={{
-                backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-                color: CONFIG.darkmode ? "#ffffff" : "#000000"
-            }}>
+        <div className={"screen halfLR"} style={{background: input.settings.background}}>
+            <div className={"Lhalf flex"}>
                 {input.children[0].type(input.content[0].content)}
             </div>
-            <div className={"Rhalf flex"} style={{
-                backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-                color: CONFIG.darkmode ? "#ffffff" : "#000000",
-            }}>
+            <div className={"Rhalf flex"}>
                 {input.children[1].type(input.content[1].content)}
             </div>
         </div>

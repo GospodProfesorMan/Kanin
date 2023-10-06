@@ -1,11 +1,7 @@
-import CONFIG from '../../../config'
-
 export default function Full(input) {
-    return (<div className="screen full flex" style={{
-            backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-            color: CONFIG.darkmode ? "#ffffff" : "#000000"
-            }}>
-            {input.children.type(input?.content?.[0]?.content)}
+    input.content[0].content.parentDimensionMultipliers = [1,1]
+    return (<div className="screen full flex" style={{background: input.settings.background}}>
+            {input.children.type(input.content[0].content)}
         </div>
     )
 }

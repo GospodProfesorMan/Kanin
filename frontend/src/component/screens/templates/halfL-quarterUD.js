@@ -1,25 +1,16 @@
-import CONFIG from '../../../config'
-
 export default function HalfLQuarterUD(input) {
+    input.content[0].content.parentDimensionMultipliers = [0.5,1]
+    input.content[1].content.parentDimensionMultipliers = [0.5,0.5]
+    input.content[2].content.parentDimensionMultipliers = [0.5,0.5]
     return (
-        <div className={"screen halfL-qUD"}>
-            <div className={"flex halfLq"} style={{
-                backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-                color: CONFIG.darkmode ? "#ffffff" : "#000000"
-            }}>
+        <div className={"screen halfL-qUD"} style={{background: input.settings.background}}>
+            <div className={"flex halfLq"}>
                 {input.children[0].type(input.content[0].content)}
             </div>
-            <div className={"flex qRU"} style={{
-                backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-                color: CONFIG.darkmode ? "#ffffff" : "#000000"
-            }}>
+            <div className={"flex qRU"}>
                 {input.children[1].type(input.content[1].content)}
             </div>
-            <div className={"flex qRD"} style={{
-                backgroundColor: CONFIG.darkmode ? "#999999" : "#ffffff",
-                color: CONFIG.darkmode ? "#ffffff" : "#000000"
-
-            }}>
+            <div className={"flex qRD"}>
                 {input.children[2].type(input.content[2].content)}
             </div>
         </div>
