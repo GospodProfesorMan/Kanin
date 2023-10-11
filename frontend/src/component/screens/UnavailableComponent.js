@@ -8,7 +8,13 @@ export default function UnavailableComponent() {
             height: "100%",
             fontSize: "30px"
         }}>
-            <div className={"text-center align-self-center text-white"}>Content currently UNAVAILABLE <br /> <div style={{fontSize: "15px", textAlign: "center"}}>Please contact your local administrator</div></div>
+            <div className={"text-center align-self-center text-white"}>
+                An error occured
+                <br />
+                <div style={{fontSize: "15px", textAlign: "center"}}>
+                    Please contact your local administrator
+                </div>
+            </div>
         </div>
     )
 }

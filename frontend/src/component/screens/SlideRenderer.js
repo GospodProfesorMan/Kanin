@@ -26,27 +26,29 @@ export default function SlideRenderer(input) {
     }
     const screenMap = {
         "full": <Full content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] ? presetMap[input.slides.presets?.[0]?.preset] : <Raw/>}
+            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
         </Full>,
         "halfL-quarterUD": <HalfLQuarterUD content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] ? presetMap[input.slides.presets?.[0]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] ? presetMap[input.slides.presets?.[1]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[2]?.preset] ? presetMap[input.slides.presets?.[2]?.preset] : <Raw/>}
+            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[2]?.preset] || <Raw/>}
         </HalfLQuarterUD>,
         "quarterUD-halfR": <QuarterUDHalfR content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] ? presetMap[input.slides.presets?.[0]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] ? presetMap[input.slides.presets?.[1]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[2]?.preset] ? presetMap[input.slides.presets?.[2]?.preset] : <Raw/>}
+            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[2]?.preset] || <Raw/>}
         </QuarterUDHalfR>,
         "halfLR": <HalfLR content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] ? presetMap[input.slides.presets?.[0]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] ? presetMap[input.slides.presets?.[1]?.preset] : <Raw/>}
+            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
         </HalfLR>,
         "halfUD": <HalfUD content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] ? presetMap[input.slides.presets?.[0]?.preset] : <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] ? presetMap[input.slides.presets?.[1]?.preset] : <Raw/>}
+            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
+            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
         </HalfUD>,
     }
 
-    return screenMap[input.slides.template] ? screenMap[input.slides.template] : <Full content={null}><UnavailableComponent/></Full>
+    return screenMap[input.slides.template] || <Full content={null}><UnavailableComponent/></Full>
 }
+
+//do a simmilar thing like in the full.js instead of passing arguments in the dictionary

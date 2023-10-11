@@ -7,7 +7,6 @@ export default function CountdownTimer() {
     const [hourIndex, setHourIndex] = useState()
 
     function reducer(state, action) {
-        console.log(action);
         if (typeof action === 'number') return action
         if (state === 1) {setHourIndex(hourIndex+1); return hours[hourIndex+1]*60}
         else return state-1
@@ -22,7 +21,6 @@ export default function CountdownTimer() {
                 setHours([1440])
                 setHourIndex(0)
                 dispatch(1440*60)
-                console.log(res);
             }
             setHours(res)
             const rn = new Date()

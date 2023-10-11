@@ -3,7 +3,7 @@ export default function HalfLQuarterUD(input) {
     input.content[1].content.parentDimensionMultipliers = [0.5,0.5]
     input.content[2].content.parentDimensionMultipliers = [0.5,0.5]
     return (
-        <div className={"screen halfL-qUD"} style={{background: input.settings.background}}>
+        <div className={"screen halfL-qUD"} style={{"--borderColor": input.settings.background}}>
             <div className={"flex halfLq"}>
                 {input.children[0].type(input.content[0].content)}
             </div>

@@ -28,8 +28,14 @@ export default function Screen() {
                 if (screens[slideIndex] < 0) screens.splice(0, slideIndex+1)
                 slideIndex = 0
             }
-            animation = screens[slideIndex].settings.animation+"-in"
-            setTimeout(() => dispatch("animate"), screens[slideIndex].settings.duration*1000)
+            //if there are no loaded slides try again in 10 seconds. no animations. breaks if number?
+            if (typeof screens[slideIndex] === 'undefined') {
+                slideIndex--
+                setTimeout(() => dispatch("incriment"), 10000)
+            } else {
+                animation = screens[slideIndex].settings.animation+"-in"
+                setTimeout(() => dispatch("animate"), screens[slideIndex].settings.duration*1000)
+            }
         }
 
         //check error?
@@ -73,6 +79,6 @@ export default function Screen() {
 }
 
 //handle errors if you gotta return an empty array or something
-//when something doesn't load (not the initial one) just get stuck on a slide and make an alert on the 'nav'
+//when something doesn't load make an alert on the 'nav'
 //test time counter and other
     //def breaks if you put in 2 numbers back to back

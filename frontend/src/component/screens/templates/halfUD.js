@@ -2,7 +2,9 @@ export default function HalfUD(input) {
     input.content[0].content.parentDimensionMultipliers = [1,0.5]
     input.content[1].content.parentDimensionMultipliers = [1,0.5]
     return (
-        <div className={"halfUD screen"} style={{background: input.settings.background}}>
+        <div className={"halfUD screen"} 
+            style={{"--borderColor": input.settings.background, "--inverted": input.settings.bgInverted || "white"}}
+        >
             <div className={"flex Uhalf"}>
                 {input.children[0].type(input.content[0].content)}
             </div>
