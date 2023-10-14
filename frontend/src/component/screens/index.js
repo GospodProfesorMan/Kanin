@@ -2,18 +2,24 @@ import getScreen from "../../services/ScreenService";
 import { useEffect, useReducer } from "react";
 import SlideRenderer from "./SlideRenderer";
 
+let toConcatSlides = []
+
+const calculateTime = (screens, slideIndex) => {
+    let toSubtractSeconds = 0
+    for (let i = 0; i < slideIndex+1; i++) toSubtractSeconds += screens[i].settings.duration
+    let inSlideLoopTimeCounter = 0
+    let loadedSlideTimeSeconds = -toSubtractSeconds
+    for (let i = 0; i < screens.length; i++) {
+        if (typeof screens[i] === 'number') {
+            loadedSlideTimeSeconds += inSlideLoopTimeCounter*(screens[i] > -1 ? screens[i]+1 : 1)
+            inSlideLoopTimeCounter = 0
+        } else inSlideLoopTimeCounter += screens[i].settings.duration
+    }
+    return loadedSlideTimeSeconds
+}
+
 export default function Screen() {
     const retriveSlides = (state, action) => {
-        if (action === "animate") {
-            setTimeout(() => dispatch("incriment"), 1000)
-            return {
-                "slideIndex": state.slideIndex,
-                "slides": state.slides,
-                "animation": state.slides[state.slideIndex].settings.animation+"-out"
-            }
-        }
-
-        let animation = state.animation
         let screens = state.slides ? state.slides : []
         let slideIndex = state.slideIndex
 
@@ -22,6 +28,10 @@ export default function Screen() {
         }
 
         if (action === "incriment" || slideIndex === -1){
+            if (toConcatSlides.length !== 0) {
+                screens = screens.concat(toConcatSlides)
+                toConcatSlides = []
+            }
             slideIndex++
             if (typeof screens[slideIndex] === 'number') {
                 screens[slideIndex] -= 1
@@ -33,28 +43,27 @@ export default function Screen() {
                 slideIndex--
                 setTimeout(() => dispatch("incriment"), 10000)
             } else {
-                animation = screens[slideIndex].settings.animation+"-in"
-                setTimeout(() => dispatch("animate"), screens[slideIndex].settings.duration*1000)
+                const wrapper = document.getElementById("anim-wrapper")
+                if (wrapper !== null) wrapper.className = screens[slideIndex].settings.animation+"-in"
+                setTimeout(() => {
+                    if(wrapper !== null) wrapper.className = screens[slideIndex].settings.animation+"-out"
+                    setTimeout(() => dispatch("incriment"), 1000)
+                }, screens[slideIndex].settings.duration*1000)
             }
         }
 
         //check error?
-        let toSubtractSeconds = 0
-        for (let i = 0; i < slideIndex+1; i++) toSubtractSeconds += screens[i].settings.duration
-        let inSlideLoopTimeCounter = 0
-        let loadedSlideTimeSeconds = -toSubtractSeconds
-        for (let i = 0; i < screens.length; i++) {
-            if (typeof screens[i] === 'number') {
-                loadedSlideTimeSeconds += inSlideLoopTimeCounter*(screens[i] > -1 ? screens[i]+1 : 1)
-                inSlideLoopTimeCounter = 0
-            } else inSlideLoopTimeCounter += screens[i].settings.duration
+        function loadSlides() {
+            if (calculateTime(screens.concat(toConcatSlides), slideIndex) < 60) getScreen().then(screens => {
+                toConcatSlides = toConcatSlides.concat(screens)
+                loadSlides()
+            })
         }
-        if (loadedSlideTimeSeconds < 60) getScreen().then(screens => dispatch(screens))
+        loadSlides()
         
         return {
             "slideIndex": slideIndex,
             "slides": screens,
-            "animation": animation
         }
     }
     
@@ -70,14 +79,15 @@ export default function Screen() {
 
     return ( 
         slides.slides ?
-        <div id="anim-wrapper" className={slides.animation}><SlideRenderer slides={slides.slides[slides.slideIndex]}/></div>
-        : <div className="loading screen">
+        <div id="anim-wrapper" className="fade-in"><SlideRenderer slides={slides.slides[slides.slideIndex]}/></div>
+        : <div className="loading screen" style={{display: "block"}}>
             <div className="loadingIcon"></div>
             <div className="loadingText">loading</div>
         </div>
     )
 }
 
+//code is overengineered try refactoring. the reload reduction might not be useing best parcatices??
 //handle errors if you gotta return an empty array or something
 //when something doesn't load make an alert on the 'nav'
 //test time counter and other

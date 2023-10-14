@@ -1,17 +1,14 @@
 export default function UnavailableComponent() {
     return (
         <div style={{
-            backgroundColor: "#959595",
-            display: "flex",
-            justifyContent: "center",
-            alignContent: "center",
-            height: "100%",
-            fontSize: "30px"
+            textAlign: "center",
+            minHeight: "100%",
+            fontSize: "8vh"
         }}>
-            <div className={"text-center align-self-center text-white"}>
+            <div style={{marginTop: "37vh"}}>
                 An error occured
                 <br />
-                <div style={{fontSize: "15px", textAlign: "center"}}>
+                <div style={{fontSize: "4vh", textAlign: "center"}}>
                     Please contact your local administrator
                 </div>
             </div>

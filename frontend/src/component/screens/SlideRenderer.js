@@ -1,18 +1,12 @@
-import Full from "./templates/full";
-import HalfLQuarterUD from "./templates/halfL-quarterUD";
-import QuarterUDHalfR from "./templates/quarterUD-halfR";
-import HalfLR from "./templates/halfLR";
-import HalfUD from "./templates/halfUD";
+import Table from "./templates/table";
+import Raw from "./templates/test"
+import WeatherWeekly from "./templates/weatherWeekly";
+import WeatherDaily from "./templates/weatherDaily";
+import List from "./templates/list";
+import BarGraph from "./templates/barGraph";
+import LineGraph from "./templates/lineGraph";
 
-import Table from "./templates/presets/table";
-import Raw from "./templates/presets/test"
-import WeatherWeekly from "./templates/presets/weatherWeekly";
-import WeatherDaily from "./templates/presets/weatherDaily";
-import List from "./templates/presets/list";
-import BarGraph from "./templates/presets/barGraph";
-import LineGraph from "./templates/presets/lineGraph";
-
-import UnavailableComponent from "./UnavailableComponent"
+// import UnavailableComponent from "./UnavailableComponent"
 
 export default function SlideRenderer(input) {
     const presetMap = {
@@ -24,31 +18,33 @@ export default function SlideRenderer(input) {
         'barGraph': <BarGraph/>,
         'lineGraph': <LineGraph/>,
     }
-    const screenMap = {
-        "full": <Full content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
-        </Full>,
-        "halfL-quarterUD": <HalfLQuarterUD content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[2]?.preset] || <Raw/>}
-        </HalfLQuarterUD>,
-        "quarterUD-halfR": <QuarterUDHalfR content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[2]?.preset] || <Raw/>}
-        </QuarterUDHalfR>,
-        "halfLR": <HalfLR content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
-        </HalfLR>,
-        "halfUD": <HalfUD content={input.slides.presets} settings={{"background": input.slides?.settings.borderColor}}>
-            {presetMap[input.slides.presets?.[0]?.preset] || <Raw/>}
-            {presetMap[input.slides.presets?.[1]?.preset] || <Raw/>}
-        </HalfUD>,
-    }
 
-    return screenMap[input.slides.template] || <Full content={null}><UnavailableComponent/></Full>
+    const template = input.slides.template
+    let templateMatrix = template.split('" "')
+    templateMatrix[0] = templateMatrix[0].slice(1)
+    templateMatrix[templateMatrix.length-1] = templateMatrix[templateMatrix.length-1].slice(0,-1)
+    let areas = new Set(template.replace(/"/g, "").split(' '))
+    let parentDimesionMultipliers = {}
+    const xSectorSize = 1/templateMatrix[0].split(' ').length
+    const ySectorSize = 1/templateMatrix.length
+    areas.forEach(area => {
+        const totalInstances = template.match(new RegExp( area, 'g' )).length
+        let i = 0
+        let instances = 0
+        while (!instances) {
+            instances = templateMatrix[i].match(new RegExp( area, 'g' ))?.length
+            i++
+        }
+        parentDimesionMultipliers[area] = {"x": xSectorSize*instances, "y": ySectorSize*(totalInstances/instances)}
+    })
+
+    return <div className="screen" style={{gridTemplateAreas: input.slides.template}}>
+        {input.slides.presets.map((item, i) => 
+            <div className="flex" style={{gridArea: item.gridArea}} key={"flex"+i}>
+                {(presetMap[item.preset] || <Raw/>).type(item.content)}
+            </div>
+        )}
+    </div>
+    
+    //error handle
 }
-
-//do a simmilar thing like in the full.js instead of passing arguments in the dictionary
