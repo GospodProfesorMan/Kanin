@@ -24,7 +24,7 @@ export default function SlideRenderer(input) {
     templateMatrix[0] = templateMatrix[0].slice(1)
     templateMatrix[templateMatrix.length-1] = templateMatrix[templateMatrix.length-1].slice(0,-1)
     let areas = new Set(template.replace(/"/g, "").split(' '))
-    let parentDimesionMultipliers = {}
+    let parentDimensionMultipliers = {}
     const xSectorSize = 1/templateMatrix[0].split(' ').length
     const ySectorSize = 1/templateMatrix.length
     areas.forEach(area => {
@@ -35,13 +35,19 @@ export default function SlideRenderer(input) {
             instances = templateMatrix[i].match(new RegExp( area, 'g' ))?.length
             i++
         }
-        parentDimesionMultipliers[area] = {"x": xSectorSize*instances, "y": ySectorSize*(totalInstances/instances)}
+        parentDimensionMultipliers[area] = {"x": xSectorSize*instances, "y": ySectorSize*(totalInstances/instances)}
     })
 
-    return <div className="screen" style={{gridTemplateAreas: input.slides.template}}>
+    return <div className="screen"
+        style={{gridTemplateAreas: input.slides.template,
+        "--row-count": templateMatrix.length,
+        "--column-count": templateMatrix[0].split(' ').length,
+        "--borderColor": input.slides.settings.borderColor || "white",
+        "--inverted": input.slides.settings.inverted || "white"}}
+    >
         {input.slides.presets.map((item, i) => 
             <div className="flex" style={{gridArea: item.gridArea}} key={"flex"+i}>
-                {(presetMap[item.preset] || <Raw/>).type(item.content)}
+                {(presetMap[item.preset] || <Raw/>).type(item.content, parentDimensionMultipliers[item.gridArea])}
             </div>
         )}
     </div>

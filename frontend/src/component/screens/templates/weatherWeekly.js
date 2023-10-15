@@ -9,6 +9,8 @@ import {
     faWind
 } from '@fortawesome/free-solid-svg-icons';
 
+import calculateOneHudredthComonentHeight from "./tools/calculate1Hudredth.js"
+
 const weatherMap = {
     "sunny": faSun,
     "rainy": faCloudShowersHeavy,
@@ -18,7 +20,8 @@ const weatherMap = {
     "windy": faWind
 };
 
-export default function Weather(input) {
+export default function Weather(input, parentDimensionMultipliers) {
+    console.log(calculateOneHudredthComonentHeight(parentDimensionMultipliers.y));
     const errormsg = <div>something went wrong</div>
     if(!Array.isArray(input.data)) return errormsg
     const settings = input.settings
@@ -28,7 +31,7 @@ export default function Weather(input) {
         gridTemplateColumns: 'repeat('+input.data.length+', '+(100/input.data.length)+'%)', 
         minHeight: '100%',
         maxHeight: "100%",
-        fontSize: window.innerHeight*0.0085*input.parentDimensionMultipliers[1]+"px"
+        fontSize: window.innerHeight*0.0086*parentDimensionMultipliers.y+"px"
     }}>
         {input.data.map((item, index) => <div key={"col"+index}
             style={{display: "grid",

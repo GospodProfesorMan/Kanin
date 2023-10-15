@@ -17,13 +17,13 @@ const weatherMap = {
     "windy": faWind
 };
 
-export default function WeatherDaily(input) {
+export default function WeatherDaily(input, parentDimensionMultipliers) {
     const errormsg = <div>something went wrong</div>
     if(!Array.isArray(input.data)) return errormsg
     const settings = input.settings
     const tempDiff = settings.tempMax-settings.tempMin
             //set reference font size of 1% of element height in pixsels.
-    return (<div style={{fontSize: window.innerHeight*0.0085*input.parentDimensionMultipliers[1]+"px",
+    return (<div style={{fontSize: window.innerHeight*0.0084*parentDimensionMultipliers.y+"px",
         overflow: "hidden"
     }}>
         <div className="weatherDailyInfo">
