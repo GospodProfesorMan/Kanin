@@ -42,8 +42,9 @@ export default function SlideRenderer(input) {
         style={{gridTemplateAreas: input.slides.template,
         "--row-count": templateMatrix.length,
         "--column-count": templateMatrix[0].split(' ').length,
-        "--borderColor": input.slides.settings.borderColor || "white",
-        "--inverted": input.slides.settings.inverted || "white"}}
+        "--borderColor": input.slides.settings.borderColor || "transparent",
+        "--inverted": input.slides.settings.inverted || "var(--root-background-color)",
+        "color": input.slides.settings.textColor || "var(--root-text-color)"}}
     >
         {input.slides.presets.map((item, i) => 
             <div className="flex" style={{gridArea: item.gridArea}} key={"flex"+i}>

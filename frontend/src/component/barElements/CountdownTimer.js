@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import getSchoolHours from "../services/SchoolHoursService";
+import getSchoolHours from "../../services/SchoolHoursService";
 
 export default function CountdownTimer() {
     

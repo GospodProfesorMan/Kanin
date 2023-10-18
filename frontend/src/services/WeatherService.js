@@ -1,8 +1,7 @@
-import axios from "axios";
 import CONFIG from "../config.js"
 
 export default async function getWeather() {
-		const response = await axios.get(`${CONFIG.strapi}/api/vreme`);
-		return response.data
+	const response = await (await fetch(`${CONFIG.strapi}/api/vreme`)).json();
+	return response
 }
 //add error handling here or this is literraly useless

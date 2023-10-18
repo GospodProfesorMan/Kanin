@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import getTicker from "../services/TickerService";
+import getTicker from "../../services/TickerService";
 
 let tickerBuffer = []
 let restOfTickerItem = ""
@@ -58,6 +58,6 @@ export default function Ticker() {
         <div id="tickerBar"></div>
     );
 }
-//let user decide backend spacing (currenly 20px)
+//get rid of spacing because we got whitespace: pre; now. (currenly 20px)
 //add a small buffer for the emements to catch up in so it's not vissible
 //also mby improve atchup mechanics since the distance is like 30px on avg

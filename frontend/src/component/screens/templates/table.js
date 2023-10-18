@@ -40,6 +40,7 @@ export default function Table(input) {
         ))}
     </div>)
 }
+//make padding settable
 //impliment the relative to parent font size for user friendlyness when managing content
 //handle settings and content errors
 //improve error messages and check small elements

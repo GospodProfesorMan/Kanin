@@ -1,3 +1,4 @@
+import calculateOneHudredthComonentHeight from './tools/calculate1Hudredth';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faCake,
@@ -23,7 +24,7 @@ export default function WeatherDaily(input, parentDimensionMultipliers) {
     const settings = input.settings
     const tempDiff = settings.tempMax-settings.tempMin
             //set reference font size of 1% of element height in pixsels.
-    return (<div style={{fontSize: window.innerHeight*0.0084*parentDimensionMultipliers.y+"px",
+    return (<div style={{fontSize: calculateOneHudredthComonentHeight(parentDimensionMultipliers.y),
         overflow: "hidden"
     }}>
         <div className="weatherDailyInfo">
@@ -67,6 +68,7 @@ export default function WeatherDaily(input, parentDimensionMultipliers) {
         </div>
     </div>)
 }
+//fuufuufufufuuuuuucking overflowssss aughhthththhthgggggg
 //graph is extremely wrong
 //consult somebody about this being ugly
 //do something about text in the graphs overlapping with other shit. (aka overflow hidden)

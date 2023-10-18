@@ -1,6 +1,6 @@
-import WeatherIcon from "./WeatherIcon";
+import WeatherIcon from "./barElements/WeatherIcon";
 // import CONFIG from '../config'
-import Ticker from "./Ticker";
+import Ticker from "./barElements/Ticker";
 
 export default function MainFooter() {
     return (

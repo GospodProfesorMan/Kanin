@@ -21,7 +21,6 @@ const weatherMap = {
 };
 
 export default function Weather(input, parentDimensionMultipliers) {
-    console.log(calculateOneHudredthComonentHeight(parentDimensionMultipliers.y));
     const errormsg = <div>something went wrong</div>
     if(!Array.isArray(input.data)) return errormsg
     const settings = input.settings
@@ -31,7 +30,7 @@ export default function Weather(input, parentDimensionMultipliers) {
         gridTemplateColumns: 'repeat('+input.data.length+', '+(100/input.data.length)+'%)', 
         minHeight: '100%',
         maxHeight: "100%",
-        fontSize: window.innerHeight*0.0086*parentDimensionMultipliers.y+"px"
+        fontSize: calculateOneHudredthComonentHeight(parentDimensionMultipliers.y)
     }}>
         {input.data.map((item, index) => <div key={"col"+index}
             style={{display: "grid",
@@ -61,6 +60,7 @@ export default function Weather(input, parentDimensionMultipliers) {
         </div>)}
     </div>)
 }
+//weathertext is retarded
 //graph is extremely wrong
 //improve error messgaes
 //figure out how to display the rest of the values

@@ -8,3 +8,4 @@ const FLEX_MARGIN_AND_PADDING_WIDTH_VH = 1
 export default function calculateOneHudredthComonentHeight(multiplier) {
     return ((window.innerHeight*SPACE_AVAILABLE_TO_SLIDE_CONTENT_VH/100*multiplier)-(window.innerHeight/100*FLEX_MARGIN_AND_PADDING_WIDTH_VH))/100+"px"
 }
+//TODO: return value is a lil too big??

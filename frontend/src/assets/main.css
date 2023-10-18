@@ -7,6 +7,11 @@
 #root {
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
+    --root-background-color: #fff;
+    --root-text-color: #000;
+    background-color: var(--root-background-color);
+    color: var(--root-text-color);
+    /* --accent-color: #335; might use if there is anything that calls for this, just an idea */
 }
 
 /* ticker */
@@ -145,6 +150,8 @@
     box-sizing: border-box;
     white-space: nowrap;
     overflow: hidden;
+    background-color: var(--root-background-color);
+    color: var(--root-text-color);
 }
 
 .logo {
@@ -219,8 +226,9 @@
     max-height: 6vh;
     font-size: 4vh;
     line-height: 1em;
+    color: var(--root-text-color);
     box-shadow: 0 0 10px 1px black;
-    background-color: white;
+    background-color: var(--root-background-color);
 }
 
 /* screens */
@@ -248,6 +256,7 @@
 }
 
 .flex > div {
+    box-sizing: border-box;
     padding: 0.4vh 0.4vw;
     min-height: 100%;
     min-width: 100%;
@@ -296,8 +305,8 @@
 .icon_container {
     position: fixed;
     z-index: 1;
-    background: white;
-    box-shadow: -1em 0 white;
+    background: var(--root-background-color);
+    box-shadow: -1em 0 var(--root-background-color);
     display: inline-block;
     height: 6vh; 
     padding: 0 3px;

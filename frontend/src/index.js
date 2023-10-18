@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import CONFIG from './config'
+
+import getSettings from './services/settingsService';
 
 import "./assets/main.css"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-document.getElementsByTagName("body")[0].style.backgroundColor = CONFIG.darkmode ? "#666666" : "#ffffff"
-if (CONFIG.font) document.getElementById('root').style.fontFamily = CONFIG.font
+const rootElement = document.getElementById('root')
+const root = ReactDOM.createRoot(rootElement);
 
-console.log(CONFIG);
+getSettings().then(settings => {
+	rootElement.style.setProperty("--root-background-color", settings.theme.background)
+	rootElement.style.setProperty("--root-text-color", settings.theme.text)
+	rootElement.style.fontFamily = settings.font
+})
+
 root.render(
 		<App />
 );

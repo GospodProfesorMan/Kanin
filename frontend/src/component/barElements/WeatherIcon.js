@@ -11,7 +11,7 @@ import {
     faWind
 } from '@fortawesome/free-solid-svg-icons';
 
-import getWeather from "../services/WeatherService";
+import getWeather from "../../services/WeatherService";
 
 const weatherMap = {
     "sunny": faSun,

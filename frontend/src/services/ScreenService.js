@@ -1,10 +1,7 @@
-import axios from "axios";
 import CONFIG from "../config.js"
 
 export default async function getScreen() {
-    const response = await axios.get(`${CONFIG.strapi}/api/slide/${CONFIG.location}`);
-    
-    const s = response.data
+    const response = await (await fetch(`${CONFIG.strapi}/api/slide/${CONFIG.location}`)).json();
     // const templates = ['full', 'halfL-quarterUD', 'quarterUD-halfR', 'halfLR', 'halfUD']
     // const presets = ['raw', 'table', 'weatherWeekly', "weatherDaily", "list", "barGraph", "lineGraph"]
     // const lengthMap = {
@@ -24,7 +21,7 @@ export default async function getScreen() {
     //         if(!presets.includes(s[i].presets[j].preset)) console.error("Imporoper preset type on element ",j,' in element',i,'of',s,' content will be displayed raw')
     //     }
     // }
-    return s
+    return response
 }
 
 //re do the error handling, clean up the naming, clean up the code, remove the shit with the arrays being manual
