@@ -1,5 +1,4 @@
-import {useEffect, useState} from "react";
-
+import {useEffect, useState, /*useContext*/} from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
     faCake,
@@ -10,7 +9,7 @@ import {
     faThunderstorm,
     faWind
 } from '@fortawesome/free-solid-svg-icons';
-
+// import { barElementSettingsContext } from '../../services/barContext';
 import getWeather from "../../services/WeatherService";
 
 const weatherMap = {
@@ -21,10 +20,17 @@ const weatherMap = {
     "thunderstormy": faThunderstorm,
     "windy": faWind
 };
-export default function WeatherIcon() {
+export default function WeatherIcon(key) {
     const [weatherIcon, setWeatherIcon] = useState(faCake);
-
+    // const settings = useContext(barElementSettingsContext);
     useEffect(() => {
+        getWeather().then(weatherText => {
+            if (weatherMap[weatherText] === undefined) {
+                setWeatherIcon(faCake);
+            } else {
+                setWeatherIcon(weatherMap[weatherText]);
+            }
+        });
         setInterval(() => {
             getWeather().then(weatherText => {
                 if (weatherMap[weatherText] === undefined) {
@@ -33,7 +39,7 @@ export default function WeatherIcon() {
                     setWeatherIcon(weatherMap[weatherText]);
                 }
             });
-        }, 5000);
+        }, 60000);
     }, []);
 
     return (<div className="icon_container">

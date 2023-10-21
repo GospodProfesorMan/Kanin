@@ -8,17 +8,16 @@ import LineGraph from "./templates/lineGraph";
 
 // import UnavailableComponent from "./UnavailableComponent"
 
+const presetMap = {
+    'raw': <Raw/>,
+    'table': <Table/>,
+    'weatherWeekly': <WeatherWeekly/>,
+    'weatherDaily': <WeatherDaily/>,
+    'list': <List/>,
+    'barGraph': <BarGraph/>,
+    'lineGraph': <LineGraph/>,
+}
 export default function SlideRenderer(input) {
-    const presetMap = {
-        'raw': <Raw/>,
-        'table': <Table/>,
-        'weatherWeekly': <WeatherWeekly/>,
-        'weatherDaily': <WeatherDaily/>,
-        'list': <List/>,
-        'barGraph': <BarGraph/>,
-        'lineGraph': <LineGraph/>,
-    }
-
     const template = input.slides.template
     let templateMatrix = template.split('" "')
     templateMatrix[0] = templateMatrix[0].slice(1)

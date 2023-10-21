@@ -1,8 +1,9 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState, /*useContext*/ } from "react";
 import getSchoolHours from "../../services/SchoolHoursService";
+// import { barElementSettingsContext } from '../../services/barContext';
 
 export default function CountdownTimer() {
-    
+    // const settings = useContext(barElementSettingsContext);
     const [hours, setHours] = useState()
     const [hourIndex, setHourIndex] = useState()
 
