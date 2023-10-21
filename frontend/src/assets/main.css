@@ -154,6 +154,7 @@
 
 .flexBar {
     display: flex;
+    gap: 0.4em;
 }
 .gridBar {
     display: grid;
@@ -164,17 +165,21 @@
 .barCenter {
     text-align: center;
 }
-.barAround {
+/* .barAround {
     justify-content: space-around;
 }
 .barBetween {
     justify-content: space-between;
-}
+} */
 
 /* logo */
 .logo {
-    background: center no-repeat;
-    background-size: contain;
+    /* background: center no-repeat;
+    background-size: contain; */
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    margin: auto;
 }
 
 /* graphs */
@@ -313,11 +318,12 @@
     z-index: 1;
     max-width: 5vw;
     min-width: 5vw;
-    height: 5vh; 
+    height: 5vh;
     background: var(--root-background-color);
-    box-shadow: -1em 0 var(--root-background-color);
+    /* box-shadow: -1em 0 var(--root-background-color); */
     display: inline-block;
     padding: 0 3px;
+    margin: auto;
 }
 .icon_container svg{
     transform: translate(-50%, -50%);

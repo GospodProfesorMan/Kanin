@@ -14,7 +14,6 @@ const barElementMap = {
     "ticker": <Ticker/>
 }
 export default function BarComponent(input) {
-    console.log("rerenderOfbar");
     return (
         <div className={"barContainer "+input.settings.spacing}>
             {input.settings.contents.map((item, key) => 
