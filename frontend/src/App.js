@@ -1,6 +1,6 @@
 import BarComponent from "./component/barComponent";
 // import MainFooter from "./component/MainFooter";
-import Screen from "./component/screens";
+import Screen from "./component";
 import getSettings from './services/settingsService';
 import { useEffect, useState } from "react";
 

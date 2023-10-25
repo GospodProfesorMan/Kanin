@@ -1,4 +1,4 @@
-import getScreen from "../../services/ScreenService";
+import getScreen from "../services/ScreenService";
 import { useEffect, useReducer } from "react";
 import SlideRenderer from "./SlideRenderer";
 
